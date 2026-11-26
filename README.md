@@ -31,10 +31,10 @@ npm test
 npm run build
 ```
 
-在 OpenClaw 中安装本地插件：
+在 OpenClaw 中安装插件：
 
 ```bash
-openclaw plugins install /path/to/openclaw-provider-workbuddy
+openclaw plugins install https://github.com/gdd00/openclaw-provider-workbuddy
 ```
 
 登录账号（如本机未登录 WorkBuddy 桌面端）：
