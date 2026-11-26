@@ -1,0 +1,122 @@
+{
+  "$schema": "https://openclaw.ai/schemas/plugin.json",
+  "id": "openclaw-provider-workbuddy",
+  "name": "WorkBuddy Provider",
+  "description": "Connect Tencent WorkBuddy (CN + Global) accounts and credits to OpenClaw",
+  "version": "0.1.0",
+  "categories": ["models"],
+  "activation": {
+    "onStartup": false
+  },
+  "providers": ["workbuddy", "workbuddy-global"],
+  "providerEndpoints": [
+    {
+      "endpointClass": "workbuddy-cn",
+      "hostSuffixes": [".copilot.tencent.com", ".codebuddy.cn"]
+    },
+    {
+      "endpointClass": "workbuddy-global",
+      "hostSuffixes": [".workbuddy.ai", ".codebuddy.ai"]
+    }
+  ],
+  "modelCatalog": {
+    "providers": {
+      "workbuddy": {
+        "baseUrl": "https://copilot.tencent.com/v2",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "hy3",
+            "name": "Hy3",
+            "input": ["text"],
+            "contextWindow": 192000,
+            "maxTokens": 64000,
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+          },
+          {
+            "id": "glm-5.3",
+            "name": "GLM-5.3",
+            "input": ["text"],
+            "contextWindow": 1000000,
+            "maxTokens": 48000,
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+          },
+          {
+            "id": "deepseek-v4-pro",
+            "name": "Deepseek-V4-Pro",
+            "input": ["text"],
+            "contextWindow": 1000000,
+            "maxTokens": 50000,
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+          }
+        ]
+      },
+      "workbuddy-global": {
+        "baseUrl": "https://www.workbuddy.ai/v2",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "fast-model",
+            "name": "Fast · x0.34",
+            "input": ["text"],
+            "contextWindow": 200000,
+            "maxTokens": 32000,
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+          },
+          {
+            "id": "balanced-model",
+            "name": "Balanced · x0.59",
+            "input": ["text"],
+            "contextWindow": 256000,
+            "maxTokens": 32000,
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+          },
+          {
+            "id": "primary-model",
+            "name": "Primary · x3.31",
+            "input": ["text"],
+            "contextWindow": 272000,
+            "maxTokens": 72000,
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+          }
+        ]
+      }
+    },
+    "discovery": {
+      "workbuddy": "refreshable",
+      "workbuddy-global": "refreshable"
+    }
+  },
+  "contracts": {
+    "usageProviders": ["workbuddy", "workbuddy-global"]
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "workbuddy",
+      "method": "oauth",
+      "choiceId": "workbuddy",
+      "choiceLabel": "WorkBuddy (CN)",
+      "choiceHint": "Browser / WeChat QR sign-in for Tencent WorkBuddy CN (copilot.tencent.com)",
+      "assistantPriority": 1,
+      "groupId": "workbuddy",
+      "groupLabel": "WorkBuddy",
+      "groupHint": "Tencent WorkBuddy CN & Global"
+    },
+    {
+      "provider": "workbuddy-global",
+      "method": "oauth",
+      "choiceId": "workbuddy-global",
+      "choiceLabel": "WorkBuddy AI (Global)",
+      "choiceHint": "Browser sign-in for WorkBuddy Global (workbuddy.ai)",
+      "assistantPriority": 2,
+      "groupId": "workbuddy",
+      "groupLabel": "WorkBuddy",
+      "groupHint": "Tencent WorkBuddy CN & Global"
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

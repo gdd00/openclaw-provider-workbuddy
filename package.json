@@ -1,0 +1,43 @@
+{
+  "name": "openclaw-provider-workbuddy",
+  "version": "0.1.0",
+  "description": "OpenClaw provider plugin for WorkBuddy (CodeBuddy) — dual-region (CN + Global) with OAuth login, desktop credential reuse, dynamic model catalog with credit multipliers, DSML tool-call recovery, usage/credits snapshot, and CN daily check-in commands",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "workbuddy",
+    "codebuddy",
+    "provider",
+    "ai"
+  ],
+  "files": [
+    "openclaw.plugin.json",
+    "README.md",
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:openclaw --external:openclaw/*",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.0"
+  }
+}
